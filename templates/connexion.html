@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- <></> -->
+ 
+<html>
+ 
+   <head>
+     {% include 'bootstrap.html' %}
+
+     <title>Connexion</title>
+   </head>
+ 
+   <body>
+    {% include 'header.html' %}
+
+    <div class="container text-center">
+      
+      <div class="mb-4">
+        <img src="/static/images/logo.png" alt="Logo" width="60" height="auto" class="rounded-3">
+        <h1>Connexion</h1>
+      </div>
+
+      <form action="/connexion/verification" method="post" class="needs-validation">
+          
+          <div class="mb-4 row justify-content-center">
+              <label for="" class="form-label fs-4 fw-normal mb-0 col-2">Adresse email</label>
+              <div class="col-4">
+                  <input type="email" required name="email" id="" placeholder="marcel.takam@esw.local" class="form-control form-control-lg">
+                  <div class="invalid-feedback">Veuillez Entrer votre adresse email</div>
+              </div>
+          </div>
+  
+          <div class="mb-4 row justify-content-center">
+              <label for="" class="form-label fs-4 fw-normal mb-0 col-2">Mot de passe</label>
+              <div class="col-4">    
+                  <input type="password" required name="mot_de_passe" id="" class="form-control form-control-lg">
+                  <div class="invalid-feedback">Veuillez entrer votre mot de passe</div>
+              </div>
+          </div>
+          
+          <input type="submit" class="btn btn-outline-primary btn-lg mt-2" value="Se connecter">
+          
+      </form>
+  </div>
+
+    {% include 'footer.html' %}
+   </body>
+ 
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+ 
+<html>
+ 
+   <head>
+     {% include 'bootstrap.html' %}
+
+     <title>Récapitulatif inscription</title>
+   </head>
+ 
+   <body>
+    {% include 'header.html' %}
+
+        <div class="container text-center">
+            
+            {% if verif == "success" %}
+            <p class="mb-2 p-1 fw-normal text-bg-success fst-italic">
+                Votre compte a été créé avec succès !
+            </p>
+  
+            <p class="fw-normal">
+                Récapitulatif des informations que vous avez fournies 
+                (vous pouvez les modifier à tout moment dans votre <a href="/connexion">espace personnel</a>):
+            </p>
+            
+            <div class="container text-start fs-5" style="width: 60%;">
+                <p><span class="fw-bold me-1">Nom:</span> {{ new_user["nom"] }}</p>
+                <p><span class="fw-bold me-1">Prenom:</span> {{ new_user["prenom"] }}</p>
+                {% if  new_user["sexe"] == 'M' %}
+                <p><span class="fw-bold me-1">Sexe:</span> Masculin</p>
+                {% else %}
+                <p><span class="fw-bold me-1">Sexe:</span> Féminin</p>
+                {% endif %}
+                <p><span class="fw-bold me-1">Adresse email:</span> {{ new_user["email"] }}</p>
+                <p><span class="fw-bold me-1">Téléphone:</span> {{ new_user["telephone"] }}</p>
+                <p><span class="fw-bold me-1">Poste:</span> {{ new_user["poste"] }}</p>
+                <p><span class="fw-bold me-1">Description du poste:</span> {{ new_user["description_poste"] }}</p>
+            </div>
+            
+            <a href="/connexion">Connectez-vous</a>
+            {% else %}
+            <p class="mb-4 p-1 fw-normal text-bg-danger fst-italic">
+                Cette adresse mail est déjà utilisée !
+            </p>
+            <a href="/inscription">Réessayez</a>
+            {% endif %}
+        </div>
+
+    {% include 'footer.html' %}
+   </body>
+ 
+</html>

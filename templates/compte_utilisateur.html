@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+ 
+<html>
+ 
+   <head>
+     {% include 'bootstrap.html' %}
+
+     <title>Récapitulatif inscription</title>
+   </head>
+ 
+   <body>
+    {% include 'header.html' %}
+
+        <div class="container">
+
+            <a href="/current_url/gerer-mon-compte" class="btn btn-outline-primary btn-lg mb-3" role="button">Gérer mon compte</a>
+            <div class="row justify-content-evenly" style="width: 100%;">
+                
+                <div class="col-4" style="width: 30%;">
+                    <p>
+                        <p class="fw-bold mb-0">Poste:</p>
+                        <p class="text-break">{{ user_account["pers_poste"] }}</p>
+                    </p>
+                    <p>
+                        <p class="fw-bold mb-0">Identifiant:</p>
+                        <p class="text-break">{{ user_account["pers_id"] }}</p>
+                    </p>
+                    <p>
+                        <p class="fw-bold mb-0">Adresse email:</p>
+                        <p class="text-break">{{ user_account["pers_email"] }}</p>
+                    </p>
+                    <p>
+                        <p class="fw-bold mb-0">Téléphone:</p>
+                        <p class="text-break">{{ user_account["pers_telephone"] }}</p>
+                    </p>
+                    <p>
+                        <p class="fw-bold mb-0">Sexe:</p>
+                        {% if user_account["pers_sexe"] == 'M' %}
+                        <p class="text-break">Masculin</p>
+                        {% else %}
+                        <p class="text-break">Féminin</p>
+                        {% endif %}
+                    </p>
+                    <p>
+                        <p class="fw-bold mb-0">Date de création du compte:</p>
+                        <p class="text-break">{{ user_account["pers_datecreation"] }}</p>
+                    </p>
+                </div>
+    
+                <div class="col-4 text-center" style="width: 25%;">
+                    <img src="/static/images/logo.png" alt="user account photo" style="width: 85%; height: auto;" class="rounded-5">
+                    <div class="my-2 fw-semibold">
+                        <p class="m-0">NGUEKAM YOSSA</p>
+                        <p class="m-0">Gabin</p>
+                    </div>
+                </div>
+    
+                <div class="col-4" style="width: 45%;">
+                    <p class="fw-bold me-1 text-center">Description du poste:</p>
+                    <p>{{ user_account["pers_descriptionposte"] }}</p>
+                </div>
+            </div>
+        </div>
+
+    {% include 'footer.html' %}
+   </body>
+ 
+</html>

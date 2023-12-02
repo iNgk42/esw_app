@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- <></> -->
+ 
+<html>
+ 
+   <head>
+    {% include 'bootstrap.html' %}
+
+    <title>Accueil</title>
+   </head>
+ 
+   <body>
+    {% include 'header.html' %}
+
+    <div class="container text-center">
+      <h4>Bienvenue sur l'application</h4>
+      
+      <div class="mb-4">
+        <img src="/static/images/logo.png" alt="Logo" width="110" height="auto" class="rounded-3">
+        <h1>Easy Storage Webapp</h1>
+      </div>
+      
+      <p class="lead mb-3 pb-4 mx-auto fw-normal" style="width: 75%;">
+        Une solution simple et efficace pour la gestion et l'organisation
+        de vos différents sujets. De l'inventaire de vos items à leur gestion,
+        Easy Storage Webapp est la solution qui vous conviendra à coup sûr.
+      </p>
+      
+      <a class="btn btn-primary btn-lg me-5" href="/inscription" role="button">S'inscrire</a>
+      <a class="btn btn-primary btn-lg ms-5" href="/connexion" role="button">Se connecter</a>
+    </div>
+
+    {% include 'footer.html' %}
+   </body>
+ 
+</html>

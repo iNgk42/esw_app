@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+ 
+<html>
+ 
+   <head>
+     {% include 'bootstrap.html' %}
+
+     <title>Récapitulatif inscription</title>
+   </head>
+ 
+   <body>
+    {% include 'header.html' %}
+
+        <div class="container text-center">
+
+            <p class="my-4 p-1 fw-normal text-bg-danger fst-italic">
+                L'adresse mail ou le mot de passe saisi est incorrect !
+            </p>
+            <a href="/connexion" class="mt-4 pt-4">Réessayez</a>
+        
+        </div>
+
+    {% include 'footer.html' %}
+   </body>
+ 
+</html>
