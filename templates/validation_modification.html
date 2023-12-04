@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+ 
+<html>
+ 
+   <head>
+     {% include 'bootstrap.html' %}
+
+     <title>Récapitulatif inscription</title>
+   </head>
+ 
+   <body>
+    {% include 'header.html' %}
+
+        <div class="container text-center">
+            
+            {% if verif == "success" %}
+            <p class="mb-2 p-1 fw-normal text-bg-success fst-italic">
+                Vos modifications ont été enregistrées avec succès !
+            </p>
+  
+            <p class="fw-normal">
+                Récapitulatif des informations que vous avez fournies 
+                (vous pouvez les modifier à tout moment dans votre <a href="/comptes/{{ id }}/{{ user_edits['nom'] }}">espace personnel</a>):
+            </p>
+            
+            <div class="container text-start fs-5" style="width: 60%;">
+                <p><span class="fw-bold me-1">Nom:</span> {{ user_edits["nom"] }}</p>
+                <p><span class="fw-bold me-1">Prenom:</span> {{ user_edits["prenom"] }}</p>
+                {% if  user_edits["sexe"] == 'M' %}
+                <p><span class="fw-bold me-1">Sexe:</span> Masculin</p>
+                {% else %}
+                <p><span class="fw-bold me-1">Sexe:</span> Féminin</p>
+                {% endif %}
+                <p><span class="fw-bold me-1">Adresse email:</span> {{ user_edits["email"] }}</p>
+                <p><span class="fw-bold me-1">Téléphone:</span> {{ user_edits["telephone"] }}</p>
+                <p><span class="fw-bold me-1">Poste:</span> {{ user_edits["poste"] }}</p>
+                <p><span class="fw-bold me-1">Description du poste:</span> {{ user_edits["description_poste"] }}</p>
+            </div>
+            
+            <a href="/comptes/{{ id }}/{{ user_edits['nom'] }}">Retourner à votre espace personnel</a>
+            {% else %}
+            <p class="mb-4 p-1 fw-normal text-bg-danger fst-italic">
+                Cette adresse mail est déjà utilisée !
+            </p>
+            <a href="/inscription">Réessayez</a>
+            {% endif %}
+        </div>
+
+    {% include 'footer.html' %}
+   </body>
+ 
+</html>

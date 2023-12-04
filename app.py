@@ -30,14 +30,23 @@ def verification_connexion():
         return render_template('connexion_failed.html', state=connection_button_state,
                                                         home_button_state=home_button_state)
     else:
-        return redirect('/comptes/' + user_account["pers_email"] + "/" + user_account["pers_nom"])
+        return redirect('/comptes/' + str(user_account["pers_id"]) + "/" + user_account["pers_nom"])
 
-@app.route("/comptes/<email>/<nom>")
-def affichage_compte(email, nom):
+@app.route("/comptes/<id>/<nom>")
+def affichage_compte(id, nom):
     connection_button_state = "visually-hidden"
     home_button_state = ""
-    user_account = load_user_account_from_db(email)
+    user_account = load_user_account_from_db(id)
     return render_template('compte_utilisateur.html', state=connection_button_state,
+                                               home_button_state=home_button_state,
+                                               user_account=user_account)
+
+@app.route("/comptes/<id>/<nom>/gerer-mon-compte")
+def gerer_compte(id, nom):
+    connection_button_state = "visually-hidden"
+    home_button_state = ""
+    user_account = load_user_account_from_db(id)
+    return render_template('gerer_mon_compte.html', state=connection_button_state,
                                                home_button_state=home_button_state,
                                                user_account=user_account)
 
@@ -58,7 +67,18 @@ def confirmation_inscription():
                                                     home_button_state=home_button_state,
                                                     new_user=new_user,
                                                     verif=verif)
-    
+
+@app.route("/comptes/<id>/<nom>/gerer-mon-compte/modifier", methods=['post'])
+def confirmation_modification_compte(id, nom):
+    connection_button_state = "visually-hidden"
+    home_button_state = ""
+    user_edits = request.form
+    verif = edit_user_account(user_edits, id)
+    return render_template('validation_modification.html', state=connection_button_state,
+                                                    home_button_state=home_button_state,
+                                                    user_edits=user_edits,
+                                                    verif=verif,
+                                                    id=id)
 
 # Exécution de l'application
 if __name__ == '__main__':

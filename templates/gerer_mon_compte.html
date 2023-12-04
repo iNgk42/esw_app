@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- <></> -->
+ 
+<html>
+ 
+  <head>
+    {% include 'bootstrap.html' %}
+
+    <title>Gestion de compte</title>
+  </head>
+ 
+  <body>
+    {% include 'header.html' %}
+
+    <div class="container text-center">
+      
+      <div class="mb-4">
+        <img src="/static/images/logo.png" alt="Logo" width="60" height="auto" class="rounded-3">
+        <h1>Gérer mon compte</h1>
+      </div>
+
+      <form action="/comptes/{{ user_account['pers_id'] }}/{{ user_account['pers_nom'] }}/gerer-mon-compte/modifier" method="post" class="needs-validation">
+        <div class="row justify-content-evenly">
+            <div class="mb-4 col-5">
+                <label for="" class="form-label fs-4 fw-normal mb-0">Nom<span class="text-danger">*</span></label><br>
+                <input type="text" required name="nom" id="" placeholder="Takam" class="form-control form-control-lg" value="{{ user_account['pers_nom'] }}">
+                <div class="invalid-feedback">Veuillez entrer votre nom</div>
+            </div>
+    
+            <div class="mb-4 col-5">
+                <label for="" class="form-label fs-4 fw-normal mb-0">Prenom<span class="text-danger">*</span></label><br>
+                <input type="text" required name="prenom" id="" placeholder="Marcel" class="form-control form-control-lg" value="{{ user_account['pers_prenom'] }}">
+                <div class="invalid-feedback">Veuillez entrer votre prénom</div>
+            </div>
+    
+            <div class="mb-4 col-5">
+                <label for="" class="form-label fs-4 fw-normal mb-0">Sexe<span class="text-danger">*</span></label><br>
+                <select class="form-select form-select-lg" name="sexe" required>
+                      {% if user_account['pers_sexe'] == 'M' %} 
+                      <option value="F">Féminin</option>
+                      <option value="M" selected>Masculin</option>
+                      {% else %}
+                      <option value="F" selected>Féminin</option>
+                      <option value="M">Masculin</option>
+                      {% endif %}
+                </select>
+                <div class="invalid-feedback">Veuillez sélectionner votre sexe</div>
+            </div>
+    
+            <div class="mb-4 col-5">
+                <label for="" class="form-label fs-4 fw-normal mb-0">Adresse email<span class="text-danger">*</span></label><br>
+                <input type="email" required name="email" id="" placeholder="marcel.takam@esw.local" class="form-control form-control-lg" value="{{ user_account['pers_email'] }}">
+                <div class="invalid-feedback">Veuillez Entrer votre adresse email</div>
+            </div>
+    
+            <div class="mb-4 col-5">
+                <label for="" class="form-label fs-4 fw-normal mb-0">Téléphone<span class="text-danger">*</span></label><br>
+                <input type="tel" required name="telephone" id="" placeholder="0645803647" class="form-control form-control-lg" value="{{ user_account['pers_telephone'] }}">
+                <div class="invalid-feedback">Veuillez Entrer votre numéro de téléphone</div>
+            </div>
+    
+            <div class="mb-4 col-5">
+                <label for="" class="form-label fs-4 fw-normal mb-0">Poste<span class="text-danger">*</span></label><br>
+                <input type="text" required name="poste" id="" placeholder="Ingénieur cloud" class="form-control form-control-lg" value="{{ user_account['pers_poste'] }}">
+                <div class="invalid-feedback">Veuillez Entrer le poste que vous occupez</div>
+            </div>
+
+            <div class="mb-4 col-11">
+                <label for="" class="form-label fs-4 fw-normal mb-0">Description du poste</label><br>
+                <textarea name="description_poste" id="" rows="2" class="form-control form-control-lg" value="{{ user_account['pers_descriptionposte'] }}"></textarea>
+            </div>
+    
+            <div class="mb-4 col-8">
+                <label for="" class="form-label fs-4 fw-normal mb-0">Vous pouvez modifier votre mot de passe ici<span class="text-danger">*</span></label>
+                <input type="password" required name="mot_de_passe" id="" class="form-control form-control-lg" value="{{ user_account['pers_mdp'] }}">
+                <div class="invalid-feedback">Vous pouvez modifier votre mot de passe ici</div>
+            </div>
+            
+            <input type="submit" class="btn btn-outline-success btn-lg" value="Appliquer les modifications">
+        </div>
+      </form>
+
+    </div>
+
+    {% include 'footer.html' %}
+  </body>
+ 
+</html>

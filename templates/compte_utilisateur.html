@@ -5,7 +5,7 @@
    <head>
      {% include 'bootstrap.html' %}
 
-     <title>Récapitulatif inscription</title>
+     <title>My Account</title>
    </head>
  
    <body>
@@ -13,9 +13,17 @@
 
         <div class="container">
 
-            <a href="/current_url/gerer-mon-compte" class="btn btn-outline-primary btn-lg mb-3" role="button">Gérer mon compte</a>
+            <a href="/comptes/{{ user_account['pers_id'] }}/{{ user_account['pers_nom'] }}/gerer-mon-compte" class="btn btn-outline-primary btn-lg mb-3 mx-4" role="button">Gérer mon compte</a>
             <div class="row justify-content-evenly" style="width: 100%;">
                 
+                <div class="col-4 text-center" style="width: 25%;">
+                    <img src="/static/images/logo.png" alt="user account photo" style="width: 85%; height: auto;" class="rounded-5">
+                    <div class="my-2 fw-semibold">
+                        <p class="m-0">NGUEKAM YOSSA</p>
+                        <p class="m-0">Gabin</p>
+                    </div>
+                </div>
+
                 <div class="col-4" style="width: 30%;">
                     <p>
                         <p class="fw-bold mb-0">Poste:</p>
@@ -45,15 +53,7 @@
                         <p class="fw-bold mb-0">Date de création du compte:</p>
                         <p class="text-break">{{ user_account["pers_datecreation"] }}</p>
                     </p>
-                </div>
-    
-                <div class="col-4 text-center" style="width: 25%;">
-                    <img src="/static/images/logo.png" alt="user account photo" style="width: 85%; height: auto;" class="rounded-5">
-                    <div class="my-2 fw-semibold">
-                        <p class="m-0">NGUEKAM YOSSA</p>
-                        <p class="m-0">Gabin</p>
-                    </div>
-                </div>
+                </div>            
     
                 <div class="col-4" style="width: 45%;">
                     <p class="fw-bold me-1 text-center">Description du poste:</p>

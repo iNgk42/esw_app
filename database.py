@@ -6,14 +6,87 @@ connection_url = URL.create(
     "mysql+pymysql",
     username="root",
     password="mysql_root_password",
-    host="esw_db",
+    host="localhost",
     port=3306,
     database="esw_db",
 )
 
 engine = create_engine(connection_url)
 
-# get users's informations and save them to database
+# get user's informations and save them to database after verify that new email was not already used
+def edit_user_account(user_edits, id): 
+    with engine.connect() as connection:
+        
+        verif_query = text("SELECT * FROM personnel WHERE pers_email=:new_user_mail AND pers_id=:user_id").\
+                        bindparams(new_user_mail=user_edits["email"], user_id=id)
+
+        verif_result = connection.execute(verif_query)
+
+        if len(verif_result.all()) == 1: # user didn't change his email
+            query = text("UPDATE personnel " \
+                                        "SET pers_nom = :nom," \
+                                            "pers_prenom = :prenom," \
+                                            "pers_sexe = :sexe," \
+                                            "pers_email = :email," \
+                                            "pers_telephone = :telephone," \
+                                            "pers_poste = :poste," \
+                                            "pers_descriptionposte = :descriptionposte," \
+                                            "pers_mdp = :mdp" \
+                                        " WHERE pers_id = :id" \
+                                        ).\
+                    bindparams( nom=user_edits["nom"],
+                                prenom=user_edits["prenom"],
+                                sexe=user_edits["sexe"],
+                                email=user_edits["email"],
+                                telephone=user_edits["telephone"],
+                                poste=user_edits["poste"],
+                                descriptionposte=user_edits["description_poste"],
+                                mdp=user_edits["mot_de_passe"],
+                                id=id
+                            )
+
+            connection.execute(query)
+            connection.commit()
+            return "success"
+        elif len(verif_result.all()) == 0: # user changed his email
+            # verify that the new user's email is unique in database before updating user account infos
+            # verification
+            unique_mail_verif_query = text("SELECT * FROM personnel WHERE pers_email=:new_user_mail").\
+                        bindparams(new_user_mail=user_edits["email"])
+            unique_mail_verif_result = connection.execute(unique_mail_verif_query)
+            if unique_mail_verif_result.all() == []:
+                # updating
+                query = text("UPDATE personnel " \
+                                        "SET pers_nom = :nom," \
+                                            "pers_prenom = :prenom," \
+                                            "pers_sexe = :sexe," \
+                                            "pers_email = :email," \
+                                            "pers_telephone = :telephone," \
+                                            "pers_poste = :poste," \
+                                            "pers_descriptionposte = :descriptionposte," \
+                                            "pers_mdp = :mdp" \
+                                        " WHERE pers_id = :id" \
+                                        ).\
+                    bindparams( nom=user_edits["nom"],
+                                prenom=user_edits["prenom"],
+                                sexe=user_edits["sexe"],
+                                email=user_edits["email"],
+                                telephone=user_edits["telephone"],
+                                poste=user_edits["poste"],
+                                descriptionposte=user_edits["description_poste"],
+                                mdp=user_edits["mot_de_passe"],
+                                id=id
+                            )
+
+                connection.execute(query)
+                connection.commit()
+                return "success"
+            else:
+                return "failed"
+        else:
+            return "failed"
+        
+#get user's edits and update user account in database 
 def add_user_to_db(new_user): 
     with engine.connect() as connection:
         
@@ -64,7 +137,7 @@ def add_user_to_db(new_user):
             return "failed"
 
 
-# get users's infos from database 
+# get all users's infos from database 
 def load_users_infos_from_db():
     with engine.connect() as connection:
         result = connection.execute(text("SELECT * FROM personnel"))
@@ -73,7 +146,7 @@ def load_users_infos_from_db():
             users_infos.append(dict(row))
     return users_infos
 
-
+# get user's credentials and verify it in database
 def login(user_credentials):
     with engine.connect() as connection:
         
@@ -90,11 +163,12 @@ def login(user_credentials):
             user_account = verif_result[0]
             return user_account
 
-def load_user_account_from_db(email):
+# get id of a user's account and load his infos and return it
+def load_user_account_from_db(id):
     with engine.connect() as connection:
         
-        load_query = text("SELECT * FROM personnel WHERE pers_email=:user_email").\
-                        bindparams(user_email=email)
+        load_query = text("SELECT * FROM personnel WHERE pers_id=:user_id").\
+                        bindparams(user_id=id)
 
         load_result = connection.execute(load_query).mappings().all()
 
